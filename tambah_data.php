@@ -2,6 +2,9 @@
     require 'functions.php';
 
     if(isset($_POST['submit'])){
+        // var_dump($_POST);
+        // var_dump($_FILES);
+        // die();
         if(tambah($_POST) > 0){
             echo "
                 <script>

@@ -24,11 +24,16 @@ function query($query_kedua){
 function tambah($data){
     global $conn;
 
-    $nama=$data["Nama"];
-    $nim=$data["Nim"];
-    $email=$data["Email"];
-    $jurusan=$data["Jurusan"];
+    $nama=htmlspecialchars($data["Nama"]);
+    $nim=htmlspecialchars($data["Nim"]);
+    $email=htmlspecialchars($data["Email"]);
+    $jurusan=htmlspecialchars($data["Jurusan"]);
     $gambar=$data["Gambar"];
+
+    $gambar=upload();
+    if(!$gambar){
+        return false;
+    }
 
     $query= "INSERT INTO mahasiswa
                 VALUES ('','$nama','$nim','$email','$jurusan','$gambar')";
@@ -75,5 +80,45 @@ function cari($keyword){
             ";
     
     return query($sql);
+}
+
+function upload(){
+    $nama_file  =$_FILES['Gambar']['name'];
+    $ukuran_file=$_FILES['Gambar']['size'];
+    $error      =$_FILES['Gambar']['error'];
+    $tmpfile    =$_FILES['Gambar']['tmp_name'];
+
+    if($error === 4){
+        echo "
+            <script>
+                alert('Tidak ada gambar yang diupload');
+            </script>
+        ";
+        return false;
+    }
+
+    $jenis_gambar=['jpg', 'jpeg', 'gif'];
+    $pecah_gambar=explode('.', $nama_file);
+    $pecah_gambar=strtolower(end($pecah_gambar));
+    if(!in_array($pecah_gambar, $jenis_gambar)){
+        echo "
+            <script>
+                alert('yang anda upload bukan file gambar');
+            </script>
+        ";
+        return false;
+    }
+
+    if($ukuran_file > 10000000){
+        echo "
+            <script>
+                alert('ukuran gambar terlalu besar');
+            </script>
+        ";
+        return false;
+    }
+
+    move_uploaded_file($tmpfile, 'image/'.$nama_file);
+    return $nama_file;
 }
 ?>

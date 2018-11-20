@@ -117,8 +117,11 @@ function upload(){
         ";
         return false;
     }
+    $namafilebaru=uniqid();
+    $namafilebaru .= '.';
+    $namafilebaru .= $pecah_gambar;
 
-    move_uploaded_file($tmpfile, 'image/'.$nama_file);
-    return $nama_file;
+    move_uploaded_file($tmpfile, 'image/'.$namafilebaru);
+    return $namafilebaru;
 }
 ?>

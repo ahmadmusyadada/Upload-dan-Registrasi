@@ -52,8 +52,10 @@
     </nav>
     <h1>Update Data Mahasiswa</h1>
     <br>
-    <form action="" method="post" class="form-inline" role="form">
+    <form action="" method="post" class="form-inline" role="form" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?= $mhs[id] ?>">
+
+    <input type="hidden" name="GambarLama" value="<?= $mhs[Gambar]; ?>">
         <div class="form-group">
             <label for="Nama" class="col-sm-1 control-label">Nama</label>
                 <div class="col-sm-11">
@@ -77,7 +79,8 @@
 
             <label for="Gambar" class="col-sm-1 control-label">Gambar</label>
             <div class="col-sm-11">
-            <input type="text" class="form-control" name="Gambar" id="Gambar" required value="<?= $mhs[Gambar]; ?>">
+            <img src="image/<?= $mhs[Gambar];?>" alt="" height="100" width="100"><br>
+            <input type="file" class="form-control" name="Gambar" id="Gambar" required value="<?= $mhs[Gambar]; ?>">
             </div>
         </div>
         <!-- <button type="submit" class="btn btn-primary" style="float: right; margin-right: 5%; margin-top: 2%">Submit</button> -->

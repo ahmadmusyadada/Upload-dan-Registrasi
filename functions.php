@@ -51,12 +51,18 @@ function hapus ($id){
 function edit ($data){
     global $conn;
 
-    $id = $data["id"];
-    $nama = htmlspecialchars($data["Nama"]);
-    $nim = htmlspecialchars($data["Nim"]);
-    $email = htmlspecialchars($data["Email"]);
-    $jurusan = htmlspecialchars($data["Jurusan"]);
-    $gambar = htmlspecialchars($data["Gambar"]);
+    $id         = $data["id"];
+    $nama       = htmlspecialchars($data["Nama"]);
+    $nim        = htmlspecialchars($data["Nim"]);
+    $email      = htmlspecialchars($data["Email"]);
+    $jurusan    = htmlspecialchars($data["Jurusan"]);
+    $GambarLama = htmlspecialchars($data["GambarLama"]);
+
+    if($_FILES['Gambar'][error] === 4){
+        $gambar=$GambarLama;
+    } else {
+        $gambar=upload();
+    }
 
     $query = "UPDATE mahasiswa SET
                 Nama = '$nama',
